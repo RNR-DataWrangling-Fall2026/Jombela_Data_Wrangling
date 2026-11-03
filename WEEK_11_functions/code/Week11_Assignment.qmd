@@ -43,10 +43,12 @@ a.  Copy the following function (which converts weights in pounds to weights in 
     Use the function to calculate how many grams there are in 3.75 pounds.
 
 ```{r}
-# convert_pounds_to_grams <- function(________) {
-#     grams <- 453.6 * pounds
-#     return(________)
-# }
+convert_pounds_to_grams <- function(pounds) {
+  grams <- 453.6 * pounds
+ return(grams)
+}
+
+convert_pounds_to_grams(3.75)
 ```
 
 b.  Copy the following function (which converts temperatures in Fahrenheit to temperatures in Celsius) and replace the `________` with the needed commands and variable names so that the function returns the calculated value for Celsius. Remove the comments and run the code to add the function to your environment.
@@ -54,15 +56,28 @@ b.  Copy the following function (which converts temperatures in Fahrenheit to te
     Use the function to calculate the temperature in Celsius if the temperature in Fahrenheit is 80°F.
 
 ```{r}
-# convert_fahrenheit_to_celsius <- ________(________) {
-#     celsius <- (fahrenheit - 32) * 5 / 9
-#     ________(________)
-# }
+convert_fahrenheit_to_celsius <- function(fahrenheit) {
+ celsius <- (fahrenheit - 32) * 5 / 9
+   return(celsius)
+}
+
+convert_fahrenheit_to_celsius(80)
 ```
 
 c.  Write a function named `double` that takes a number as input and outputs that number multiplied by 2. Run it with an input of 512.
 
 d.  Write a function named `prediction` that takes three arguments, `x`, `a`, and `b`, and returns `y`. Use the following equation `a + b * x` (like a prediction from a simple linear model). Run it with `x` = 12, `a` = 6, and `b` = 0.8.
+
+```{r}
+#C Write a function named double that takes a number as input and outputs that number multiplied by 2. Run it with an input of 512.
+double <- function(number){
+  multiply(number*2)
+  return(multiply)
+}
+
+#equation named prediction
+
+```
 
 ### 2. Use and Modify (15 points)
 
@@ -113,7 +128,7 @@ This is a follow up to `Question 2: Use and Modify`.
 
 Allowing `a` and `b` to be passed as arguments to `get_mass_from_length()` made the function more flexible, but for some types of dinosaurs we don't have specific values of `a` and `b` and so we have to use general values that can be applied to a number of different species.
 
-a. Rewrite your `get_mass_from length()` function from Question 2 so that its arguments have default values of `a = 39.9` and `b = 2.6` (the average values from [Seebacher 2001](http://www.jstor.org/stable/4524171)).
+a.  Rewrite your `get_mass_from length()` function from Question 2 so that its arguments have default values of `a = 39.9` and `b = 2.6` (the average values from [Seebacher 2001](http://www.jstor.org/stable/4524171)).
 b.  Use the rewritten function from (a) to estimate the mass of a Sauropoda (`a = 214.44`, `b = 1.46`) that is 22 m long.
 c.  Use this function to estimate the mass of a dinosaur from an unknown taxonomic group that is 16m long. Only pass the function `length`, not `a` and `b`, so that the default values are used.
 
