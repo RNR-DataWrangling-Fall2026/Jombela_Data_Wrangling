@@ -71,12 +71,18 @@ d.  Write a function named `prediction` that takes three arguments, `x`, `a`, an
 ```{r}
 #C Write a function named double that takes a number as input and outputs that number multiplied by 2. Run it with an input of 512.
 double <- function(number){
-  multiply(number*2)
+  multiply <- (number)*2
   return(multiply)
 }
+double(number = 512)
+
 
 #equation named prediction
-
+prediction <- function(x, a, b){
+  y <- a + b * x 
+  return(y)
+}
+  prediction(x = 12, a = 6, b = 0.8)
 ```
 
 ### 2. Use and Modify (15 points)
@@ -94,6 +100,7 @@ get_mass_from_length_theropoda <- function(length){
   mass <- 0.73 * length ^ 3.63
   return(mass)
 }
+
 ```
 
 a.  Use this function to print out the mass of a *Theropoda* that is 16 m long based on its reassembled skeleton.
@@ -102,6 +109,19 @@ b.  Create a new version of this function called `get_mass_from_length()` that t
 
     Use this function to estimate the mass of a *Sauropoda* (`a = 214.44`, `b = 1.46`) that is 26 m long.
 
+```{r}
+#3a 
+get_mass_from_length_theropoda(16)
+
+#3b 
+get_mass_from_length <- function(a, b, length){
+  mass <- a * length ^ b
+  return(mass)
+}
+
+get_mass_from_length(214.44,  1.46, 26 )
+```
+
 ### 3. Writing Functions: Part 2 (15 points)
 
 a.  Copy the following function below (which converts weights in pounds to weights in grams and rounds them). Replace the `________` with the variable names for the input and output. Replace `__` with a number so that by default the function will round the output to one decimal place.
@@ -109,11 +129,14 @@ a.  Copy the following function below (which converts weights in pounds to weigh
     Use the function to calculate how many grams there are in 4.3 pounds using the default for the number of decimal places.
 
 ```{r}
-# convert_pounds_to_grams <- function(________, numdigits = __) {
-#   grams <- 453.6 * pounds
-#   rounded <- round(grams, digits = numdigits)
-#   return(________)
-# }
+#3a
+convert_pounds_to_grams <- function(pounds, numdigits = 1) {
+  grams <- 453.6 * pounds
+  rounded <- round(grams, digits = numdigits)
+ return(rounded)
+}
+
+convert_pounds_to_grams(4.3)
 ```
 
 b.  Write a function called `get_height_from_weight` that takes three arguments, `weight`, `a`, and `b`, and returns an estimate of `height` using `height <- a * weight ^ b` (a prediction from a power model). Give it default arguments of `a` = 12 and `b` = 0.38. There should be no default value for `weight`.
@@ -121,6 +144,22 @@ b.  Write a function called `get_height_from_weight` that takes three arguments,
     Use the default argument values (by passing only the value of `weight` to the function) to calculate `height` when `weight` = 42.
 
 c.  The function in (b) assumes that the weight is provided in grams. Use the functions from (3a) and (3b) in combination to estimate the height for an animal that weighs 2 pounds using the default value for `a`, but changing the value for `b` to 0.32.
+
+```{r}
+#3b 
+get_height_from_weight <- function(weight, a = 12, b = 0.38){
+  height <- a * weight ^ b
+  return(height)
+}
+
+#calculate height twhen the weight is 42
+get_height_from_weight(42, 12, 0.38)
+
+
+#3c
+get_height_from_weight(2, b =0.32)
+
+```
 
 ### 4. Default Arguments (15 points)
 
