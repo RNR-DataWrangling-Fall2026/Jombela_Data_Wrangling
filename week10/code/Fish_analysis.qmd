@@ -34,3 +34,8 @@ Filtered_data
 
 write_csv(Filtered_data, "../data/Filtered_data.csv")
 ```
+
+```{r}
+ggplot(fish_data, aes(scalelength)) +
+  geom_histogram()
+```
