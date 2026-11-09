@@ -44,8 +44,6 @@ ggplot(Filtered_data, aes(scalelength)) +
 scale_hist_by_length <- ggplot(Filtered_data, aes(scalelength)) +
   geom_histogram(bins = 80)
 
-ggsave(
-  filename = "../plots/scale_hist_by_length.jpg",
-  plot = scale_hist_by_length
-)
+ggsave(filename = "../plots/scale_hist_by_length.jpg",
+  plot = scale_hist_by_length)
 ```
