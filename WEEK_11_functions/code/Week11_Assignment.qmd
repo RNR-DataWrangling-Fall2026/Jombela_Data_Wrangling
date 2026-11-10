@@ -243,7 +243,6 @@ c.  Create a new function based on the function you created in (a); in this new 
     Remake the same plot as from (b) using your new function. Save your plot as a .png file using `ggsave()` in the appropriate sub-directory.
 
     ```{r}
-    #6a
     library(ggplot2)
     make_colored_plot <- function(df, count, area, color_by) {
         ggplot(data = df, aes(x = {{ area }}, y = {{ count }}, 
@@ -254,18 +253,20 @@ c.  Create a new function based on the function you created in (a); in this new 
             theme_light()
     }
 
-    library(ggplot2)
-
     make_colored_plot2 <- function(df, color_by) {
-      ggplot(data = df, aes(x = area, y = count, color = {{ color_by }})) +
+      ggplot(data = df, aes(x = {{ area }}, y = {{ count }}, 
+                            color = {{ color_by }})) +
         geom_point(size = 3) +
         labs(x = "Area", 
              y = "Count") +
         theme_light()
     }
 
+
     scatter_plot1 <- make_colored_plot(df = count_data,
-                                  color_by = state)
+                      count = count,
+                      area = area,
+                      color_by = state)
 
     ggsave(scatter_plot1, "../plots/scatter_plot1.png")
 
@@ -276,6 +277,17 @@ c.  Create a new function based on the function you created in (a); in this new 
                                        color_by = site)
 
     ggsave("../figures/scatter_plot2.png", scatter_plot2)
+
+    #6c
+    make_colored_plot <- function(df, x, area, color_by) {
+      ggplot(data = df, aes(x = {{ area }}, y = {{ count }}, 
+                            color = {{ color_by }})) +
+        geom_point(size = 3) +
+        labs(x = "Area", 
+             y = "Count") +
+        theme_light()
+    }
+
     ```
 
 ### 7. Portal Species Time-Series Challenge (OPTIONAL)
