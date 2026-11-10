@@ -160,8 +160,10 @@ get_height_from_weight <- function(weight, a = 12, b = 0.38){
 get_height_from_weight(42, 12, 0.38)
 
 
-#3c
-get_height_from_weight(2, b = 0.32)
+#3c combining two functions 
+convert_pounds_to_grams(2) |> 
+  get_height_from_weight(b = 0.32)
+  
 
 ```
 
@@ -204,13 +206,14 @@ Using a pipe, connect this new function and your `get_mass_from_length()` functi
 ```{r}
 #writing a convert_to_kgs function
 convert_kg_to_pounds <- function(kg){
-   kgs <- pounds = 2.205 * kg
+   kgs <- (pounds = 2.205 * kg)
    return(kgs)
 }
 
 Stegosauria <- get_mass_from_length2(12, a = 10.95, b = 2.64) |>  
   convert_kg_to_pounds()
-Stegosauria
+
+Stegosauria #print
 ```
 
 ### 6. Writing Tidyverse Functions (20 points)
@@ -243,50 +246,48 @@ c.  Create a new function based on the function you created in (a); in this new 
     Remake the same plot as from (b) using your new function. Save your plot as a .png file using `ggsave()` in the appropriate sub-directory.
 
     ```{r}
+
+    #loading  packages
     library(ggplot2)
-    make_colored_plot <- function(df, count, area, color_by) {
-        ggplot(data = df, aes(x = {{ area }}, y = {{ count }}, 
-                    color = {{ color_by }})) +
-             geom_point(size = 3) +
-             labs(x = "Area", 
-                  y = "Count") +
-            theme_light()
-    }
 
+     #6a
     make_colored_plot2 <- function(df, color_by) {
-      ggplot(data = df, aes(x = {{ area }}, y = {{ count }}, 
-                            color = {{ color_by }})) +
+      ggplot(data = df, aes(x = area, y = count, color = {{ color_by }})) +
         geom_point(size = 3) +
-        labs(x = "Area", 
-             y = "Count") +
-        theme_light()
+        labs(x = "Area[[ha]",
+             y = "Number of Individuals") 
     }
 
+    scatter_plot1 <- make_colored_plot2(df = count_data,
+                                  color_by = state)
 
-    scatter_plot1 <- make_colored_plot(df = count_data,
-                      count = count,
-                      area = area,
-                      color_by = state)
+    ggsave("../figures/scatter_plot1.png", scatter_plot1)
 
-    ggsave(scatter_plot1, "../plots/scatter_plot1.png")
 
     #6b #Use the function from (a) to make a scatter plot of count as a function of area for the count_data data frame with the points colored by the site column.
-    scatter_plot2 <- make_colored_plot(df = count_data,
-                                       count = count,
-                                       area = area,
+
+    scatter_plot2 <- make_colored_plot2(df = count_data,
                                        color_by = site)
 
     ggsave("../figures/scatter_plot2.png", scatter_plot2)
 
     #6c
-    make_colored_plot <- function(df, x, area, color_by) {
-      ggplot(data = df, aes(x = {{ area }}, y = {{ count }}, 
+    #writing the function with 6 arguments that can vary
+    make_colored_plot3 <- function(df, x, y, color_by, x_label, y_label) {
+      ggplot(data = df, aes(x = {{ x }}, y = {{ y }}, 
                             color = {{ color_by }})) +
         geom_point(size = 3) +
-        labs(x = "Area", 
-             y = "Count") +
-        theme_light()
+        labs(x = x_label, 
+             y = y_label) 
     }
+
+    scatter_plot3 <- make_colored_plot3(df = count_data,
+                       x = area,
+                       y= count,
+                       color_by = site,
+                       x_label = "Area [ha]",
+                       y_label = "Number of Individuals")
+    ggsave("../figures/scatter_plot3.png", scatter_plot3)
 
     ```
 

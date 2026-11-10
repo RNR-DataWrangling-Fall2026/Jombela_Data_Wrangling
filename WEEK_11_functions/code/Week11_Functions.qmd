@@ -27,7 +27,7 @@ If you find yourself needing to run the same calculations or make the same plot 
 
 When we create a function, the structure of the function generally looks like this:
 
-![](images/r-function-syntax.png){width="75%" fig-align="center"}
+![](../images/r-function-syntax.png){width="75%" fig-align="center"}
 
 A slightly different way to think about this is through inputs and outputs.
 
@@ -46,7 +46,10 @@ The braces indicate that the lines of code are a group that gets run together.
 Let's write out our first function. We want to calculate shrub volumes.
 
 ```{r}
-
+calc_shrub_vol <- function(length, width, height) {
+  volume <- (length*width*height)
+  return(volume)
+}
 ```
 
 It is important to note that writing the function does not create the function. We have to remember to run the code to create the function and add it to our environment.
@@ -56,13 +59,14 @@ When we run this code chunk above, we can see that the function gets added to ou
 Let's use our new function.
 
 ```{r}
-
+calc_shrub_vol(2.4, 1.2, 3.4)
 ```
 
 As with other functions, we can store the output as an object to use later.
 
 ```{r}
-
+shrub_vol <- calc_shrub_vol(2.4, 1.2, 3.4)
+shrub_vol #print
 ```
 
 #### Let's Practice!
@@ -157,7 +161,6 @@ Work on Questions 3 and 4 in the assignment.
 Again, as with other functions, we can combine functions of our own creation together.
 
 ```{r}
-shrub_volume 
 
 ```
 
@@ -180,13 +183,26 @@ If we try to use `tidyverse` functions the way we normally would within our func
 First, let's load our packages and get some data from `palmerpenguins`.
 
 ```{r}
+library(tidyverse)
+library(ggplot2)
 
 ```
 
 Now, let's write some code for a ggplot within a function as we normally would.
 
 ```{r eval = FALSE}
+make_plot <- function(df, column, label){
+  ggplot(data = df, aes(x = {{ column }})) + 
+  geom_histogram() +
+  labs (x = label,
+        y = "frequency") +
+    theme_light()
+}
 
+library(palmerpenguins)
+penguins <- penguins
+
+make_plot(penguins, body_mass_g, hitrogram)
 ```
 
 Surprisingly, we get an error saying that the object `body_mass_g` is not found.
