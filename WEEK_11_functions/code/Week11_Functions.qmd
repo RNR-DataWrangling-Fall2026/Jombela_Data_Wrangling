@@ -157,6 +157,7 @@ Work on Questions 3 and 4 in the assignment.
 Again, as with other functions, we can combine functions of our own creation together.
 
 ```{r}
+shrub_volume 
 
 ```
 
