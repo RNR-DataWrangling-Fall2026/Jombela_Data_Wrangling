@@ -43,6 +43,7 @@ a.  Copy the following function (which converts weights in pounds to weights in 
     Use the function to calculate how many grams there are in 3.75 pounds.
 
 ```{r}
+#1a
 convert_pounds_to_grams <- function(pounds) {
   grams <- 453.6 * pounds
  return(grams)
@@ -56,6 +57,8 @@ b.  Copy the following function (which converts temperatures in Fahrenheit to te
     Use the function to calculate the temperature in Celsius if the temperature in Fahrenheit is 80°F.
 
 ```{r}
+#1b)
+
 convert_fahrenheit_to_celsius <- function(fahrenheit) {
  celsius <- (fahrenheit - 32) * 5 / 9
    return(celsius)
@@ -77,7 +80,7 @@ double <- function(number){
 double(number = 512)
 
 
-#equation named prediction
+#1d) equation named prediction
 prediction <- function(x, a, b){
   y <- a + b * x 
   return(y)
@@ -96,6 +99,7 @@ where the parameters `a` and `b` vary among groups. This allometric approach is 
 The following function estimates the mass of an organism in kg based on its length in meters for a particular set of parameter values, those for *Theropoda* (where `a` has been estimated as `0.73` and `b` has been estimated as `3.63`; [Seebacher 2001](http://www.jstor.org/stable/4524171)).
 
 ```{r}
+
 get_mass_from_length_theropoda <- function(length){
   mass <- 0.73 * length ^ 3.63
   return(mass)
@@ -153,13 +157,12 @@ get_height_from_weight <- function(weight, a = 12, b = 0.38){
 }
 
 #calculate height twhen the weight is 42
-get_height_from_weight(42)
+get_height_from_weight(42, 12, 0.38)
+
 
 #3c
-estimate_lbs <- convert_pounds_to_grams(2, numdigits = 1) |> 
-  get_height_from_weight(a = 12, b = 0.32)
-  
- estimate_lbs #print
+get_height_from_weight(2, b = 0.32)
+
 ```
 
 ### 4. Default Arguments (15 points)
@@ -173,18 +176,17 @@ b.  Use the rewritten function from (a) to estimate the mass of a Sauropoda (`a 
 c.  Use this function to estimate the mass of a dinosaur from an unknown taxonomic group that is 16m long. Only pass the function `length`, not `a` and `b`, so that the default values are used.
 
 ```{r}
-# 4 a
+# 4a
 #Seting he defaulst values of a and b
-get_mass_from_length2 <- function(length, a = 39.9, b = 2.6){
-  mass <- a * length ^ b
-  return(mass)
-}
-
+ get_mass_from_length2 <- function(length, a = 39.9, b = 2.6){
+    mass <- a * length ^ b
+    return(mass)
+  }
 #4 b 
 #Use the rewritten function from (a) to estimate the mass of a Sauropoda (a = 214.44, b = 1.46) that is 22 m long.
 get_mass_from_length2(22, a = 214.44, b = 1.46)
 
-# Use this function to estimate the mass of a dinosaur from an unknown taxonomic group that is 16m long. Only pass the function length, not a and b, so that the default values are used.
+# 4c) Use this function to estimate the mass of a dinosaur from an unknown taxonomic group that is 16m long. Only pass the function length, not a and b, so that the default values are used.
 get_mass_from_length2(16)
 
 ```
@@ -200,16 +202,15 @@ Write a function called `convert_kg_to_pounds` that converts kilograms into poun
 Using a pipe, connect this new function and your `get_mass_from_length()` function from Question 4 to estimate the weight, in pounds, of a 12 m long Stegosaurus with `a = 10.95` and `b = 2.64` (The estimated `a` and `b` values for *Stegosauria* from [Seebacher 2001](http://www.jstor.org/stable/4524171)).
 
 ```{r}
-# 5
+#writing a convert_to_kgs function
 convert_kg_to_pounds <- function(kg){
-  kgs <- (pounds = 2.205 * kg)
-  return(kgs)
+   kgs <- pounds = 2.205 * kg
+   return(kgs)
 }
 
-Stegosauria <- get_mass_from_length2(12, a = 10.95, b = 2.64) |> 
+Stegosauria <- get_mass_from_length2(12, a = 10.95, b = 2.64) |>  
   convert_kg_to_pounds()
-
-Stegosauria #print
+Stegosauria
 ```
 
 ### 6. Writing Tidyverse Functions (20 points)
@@ -240,6 +241,42 @@ b.  Use the function from (a) to make a scatter plot of count as a function of a
 c.  Create a new function based on the function you created in (a); in this new function, allow the x and y axes to be any column in the data frame, specified as arguments in the function. This means you will also need to be able to specify the axis label names; in total, your function will need six different arguments!
 
     Remake the same plot as from (b) using your new function. Save your plot as a .png file using `ggsave()` in the appropriate sub-directory.
+
+    ```{r}
+    #6a
+    library(ggplot2)
+    make_colored_plot <- function(df, count, area, color_by) {
+        ggplot(data = df, aes(x = {{ area }}, y = {{ count }}, 
+                    color = {{ color_by }})) +
+             geom_point(size = 3) +
+             labs(x = "Area", 
+                  y = "Count") +
+            theme_light()
+    }
+
+    library(ggplot2)
+
+    make_colored_plot2 <- function(df, color_by) {
+      ggplot(data = df, aes(x = area, y = count, color = {{ color_by }})) +
+        geom_point(size = 3) +
+        labs(x = "Area", 
+             y = "Count") +
+        theme_light()
+    }
+
+    scatter_plot1 <- make_colored_plot(df = count_data,
+                                  color_by = state)
+
+    ggsave(scatter_plot1, "../plots/scatter_plot1.png")
+
+    #6b #Use the function from (a) to make a scatter plot of count as a function of area for the count_data data frame with the points colored by the site column.
+    scatter_plot2 <- make_colored_plot(df = count_data,
+                                       count = count,
+                                       area = area,
+                                       color_by = site)
+
+    ggsave("../figures/scatter_plot2.png", scatter_plot2)
+    ```
 
 ### 7. Portal Species Time-Series Challenge (OPTIONAL)
 
