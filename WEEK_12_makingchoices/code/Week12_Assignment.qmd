@@ -74,7 +74,7 @@ x*w <= 13.5
 ```
 
 \
-For this question, we will be using functions from `dplyr` (part of the `tidyverse`) and data from the `lterdatasampler` package, so make sure you load both of those packages with the `library()` function.
+2. For this question, we will be using functions from `dplyr` (part of the `tidyverse`) and data from the `lterdatasampler` package, so make sure you load both of those packages with the `library()` function.
 
 First, create an object called `crab_size` and assign the value 17 to it.
 
@@ -342,12 +342,12 @@ Rodents2 #print
 rodents <- Rodents2 |> 
   mutate(weight_class = case_when(is.na(weight) ~ "unknown",
                                   weight < 20 ~ "small",
-                                  weight >=20 & weight <= 50 ~"medium",
+                                  weight >=20 & weight < 50 ~"medium",
                                   .default = "large"))
 rodentsa <- Rodents2 |> 
   mutate(weight_class = case_when(is.na(weight) ~ "unknown",
                                   weight < 20 ~ "small",
-                                  weight >=20 & weight <= 50 ~"medium",
+                                  weight >=20 & weight < 50 ~"medium",
                                   .default = "large")) |> 
   count(weight_class)
 
