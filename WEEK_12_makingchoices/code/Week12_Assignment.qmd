@@ -54,13 +54,23 @@ d.  `w` is greater than `x`, or `y` is greater than `z`
 e.  `x` times `w` is between 13.2 and 13.5
 
 ```{r}
-w > 50
+#a 
+"green" %in% c("red", "blue", "green")
 
-x = 1.2
+#b
+!"purple" %in% c("red", "blue", "green")
 
-y < 20
+#c
+masses > 40
 
-z > 10 & z < 20
+#d
+w > x | y > z
+
+#e
+x*w <= 13.5
+
+
+
 ```
 
 \
@@ -123,6 +133,19 @@ b.  Convert your conditional statement from (a) into a function that takes `age_
 c.  Write a function called `predict_value` that takes a single argument `x`. If `x` is greater than 0 and less than 15, return `y = 6 + 0.8 * x`. If `x` is greater than or equal to 15 and less than 30, return `y = 5 + 0.75 * x`. In all other cases, return `y = NA`. Call the function three times, with `5`, `26`, and `-2` as the input.
 
 ```{r}
+predict_value <- function(x) {
+    if (x > 0 & x < 15) {
+    y <- 6 + 0.8 * x
+    
+  } else if (x >= 15 & x < 30) {
+    y <- 5 + 0.75 * x
+    
+  } else {
+    y <- NA
+  }
+  
+  return(y)
+}
 
 ```
 
