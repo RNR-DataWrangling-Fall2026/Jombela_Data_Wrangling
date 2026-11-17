@@ -313,6 +313,8 @@ e.  Using `rodents`, remove the individuals with an "unknown" weight class and c
 
     In a sentence or two, describe one pattern you see in the plot.
 
+**Answer:** *The number of rodents in all weight classes fluctuate somewhat similarly across the years in both the warm and cool seasons. Medium sized rodents are more abundant than small and large sized rodents. Medium sized rodents increased exponentially from 1995 into the 2000s*.
+
 ```{r}
 #b 
 Rodents1 <- Rodents |> 
@@ -341,10 +343,15 @@ rodents <- Rodents2 |>
   mutate(weight_class = case_when(is.na(weight) ~ "unknown",
                                   weight < 20 ~ "small",
                                   weight >=20 & weight <= 50 ~"medium",
+                                  .default = "large"))
+rodentsa <- Rodents2 |> 
+  mutate(weight_class = case_when(is.na(weight) ~ "unknown",
+                                  weight < 20 ~ "small",
+                                  weight >=20 & weight <= 50 ~"medium",
                                   .default = "large")) |> 
   count(weight_class)
 
-rodents#print
+rodentsa#print
 
 #e
 rodents |> 
