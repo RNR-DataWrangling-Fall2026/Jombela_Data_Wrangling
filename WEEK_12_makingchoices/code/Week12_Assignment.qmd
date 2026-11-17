@@ -74,15 +74,6 @@ x*w <= 13.5
 ```
 
 \
-
-```{r}
-#1b 
-
-
-```
-
-### 2. Using `dplyr` Choice Functions (20 points)
-
 For this question, we will be using functions from `dplyr` (part of the `tidyverse`) and data from the `lterdatasampler` package, so make sure you load both of those packages with the `library()` function.
 
 First, create an object called `crab_size` and assign the value 17 to it.
@@ -103,14 +94,30 @@ d.  Now use the `case_when` function inside a `mutate` function to create a new 
 #loading the libary
 library(tidyverse)
 library(lterdatasampler)
-
+#a
 crab_size <-  17
 if_else(crab_size >= 20, true = "large",
         false = "small")
-
+#b
 case_when(crab_size >= 20 ~ "large",
-          crab_size <  20 ~ "small")
+          crab_size >= 10 ~ "medium", 
+          crab_size < 10 ~ "small")
 
+#c
+data("pie_crab")
+head(pie_crab)
+
+pie_crab |> 
+  mutate(size_category = if_else(crab_size >= 20, true = "large",
+                                   false = "small"),
+         .after = size)
+
+#d 
+pie_crab |> 
+  mutate(size_category3 = case_when (crab_size >= 20 ~ "large",
+                                    crab_size >= 10 ~ "medium", 
+                                    crab_size < 10 ~ "small"),
+         .after = size)
 ```
 
 ### 3. If/Else Statements (20 points)
