@@ -44,7 +44,7 @@ for (vol in volumes) {
   print(biomass)
 }
 
-#id else do not work with vectors, if we combine for loops with if esle we can calculate for vectors
+#id else do not work with vectors, if we combine for loops with if esle we can calculate for vectors in dat frames 
 ```
 
 The code that is inside of the curly brackets will run once for each value in `volumes`. The `vol` object is a placeholder, representing one value from `volumes` at a time.
@@ -86,7 +86,12 @@ There is another way to loop: *looping by index*
 - We use `1:length(volumes)` so the loop works no matter how many values there are. (For a data frame, we use `nrow()`.)
 
 ```{r}
+volumes
 
+for (i in 1:length(volumes)) {
+  biomass <- 2.65*volumes[i]^0.9
+  print(biomass)
+} #one through the lenth of the vector 
 ```
 
 This new version of the loop gives us the same result as our original loop, but it's more complicated to understand. So why would we want to loop by index?
@@ -102,6 +107,8 @@ To store results, we create an empty object *before* the loop starts. The `vecto
 
 ```{r}
 
+biomasses <- vector(mode = "numeric", # where we rae going to store our vectors 
+                  length = length(volumes)) # we can do this to increase flexibility, even if the code changes 
 ```
 
 For each trip through the loop, we put the output into the `i`th position in the empty vector.
