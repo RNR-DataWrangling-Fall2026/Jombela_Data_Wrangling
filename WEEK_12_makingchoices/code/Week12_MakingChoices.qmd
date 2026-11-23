@@ -366,8 +366,6 @@ est_biomass("grass", 24)
 
 ```
 
-> 
->
 > ```{r}
 > est_biomass <- function(veg_type, volume){
 >   if (veg_type == "shrub") {
@@ -381,7 +379,7 @@ est_biomass("grass", 24)
 >   return(biomass)
 >   
 > }
->
+> >
 > ```
 >
 > Work on Questions 3b-3c and Question 4
