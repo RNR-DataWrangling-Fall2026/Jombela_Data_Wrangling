@@ -220,7 +220,15 @@ b.  Add code to the loop to calculate the minimum and maximum latitude in the fi
     Show the data frame as output.
 
 ```{r}
+#Downloading the zip file 
+download.file("http://www.datacarpentry.org/semester-biology/data/locations.zip",
+              destfile = "../data/locations.zip") # where to put the zip file
 
+unzip(zipfile = "../data/locations.zip",
+      exdir = "../data/")
+
+data_files <- list.files(path = "../data/", 
+                         pattern = "locations.*.txt")
 
 
 ```
@@ -236,7 +244,22 @@ a.  Write a function that determines if a sequence of base pairs is DNA, RNA, or
     *HINT: Remember our work with character strings and the `stringr` package from the `tidyverse` (Week 7)?*
 
 ```{r}
+
+
 # write your function here
+dna_or_rna <- function(sequence){
+  
+  if (str_detect(sequence, "t")) {
+    return("DNA") 
+    
+  } else if (str_detect(sequence, "u")){
+    return ("RNA")
+    
+  } else {
+    return("Unknown")
+  }
+}
+
 
 ```
 
@@ -246,6 +269,10 @@ b.  Use the function to determine the sequence type for the following sequences.
 seq1 <- "ttgaatgccttacaactgatcattacacaggcggcatgaagcaaaaatatactgtgaaccaatgcaggcg"
 seq2 <- "gauuauuccccacaaagggagugggauuaggagcugcaucauuuacaagagcagaauguuucaaaugcau"
 seq3 <- "gaaagcaagaaaaggcaggcgaggaagggaagaagggggggaaacc"
+
+dna_or_rna(seq1)
+dna_or_rna(seq2)
+dna_or_rna(seq3) 
 ```
 
 Before tackling the next questions (c-g), run the following code chunk to create a vector called sequences.
@@ -267,6 +294,26 @@ e.  This time, instead of using the function, place the `if`-`else` portion of y
 f.  OPTIONAL: Use the function and `sapply` to create a vector of sequence types for the values in sequences
 
 g.  OPTIONAL: Use the function, and `mutate()` to create a data frame that includes a column of sequences and a column of their types. First, run the following line of code to turn the sequence vector into a dataframe.
+
+```{r}
+#Use the function you wrote and a for loop to create a vector of sequence types for the values in sequences
+
+#creating a vector of sequence type
+seq_type <- vector(mode = "character",
+                   length = length(sequences))
+
+#use for loop to find sequence type
+for (i in 1:length(sequences)) {
+  seq_type[i] <- dna_or_rna(sequences[i])
+}
+
+seq_type #print
+
+#4d)
+#stoing results in a data frame 
+
+
+```
 
 ```{r}
 seq_df <- as.data.frame(sequences)
