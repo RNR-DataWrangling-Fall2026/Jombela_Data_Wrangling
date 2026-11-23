@@ -145,7 +145,59 @@ Write a function `mass_from_length()` that uses the equation `mass <- a * length
 
 a.  Use this function and a `for` loop to calculate the estimated mass for each dinosaur, store the masses in a vector, and after all of the calculations are complete show the first few items in the vector using `head()`.
 b.  Add the results in the vector back to the original data frame. Show the first few rows of the data frame using `head()`.
-c.  Calculate the mean mass for each `species` using `dplyr` (no `for` loops).
+c.  Calculate the mean mass for each `species` using `dplyr` (no `for` loops)
+
+```{r}
+#reading in the data 
+dinosaur_length <- read_csv("../data/dinosaur_lengths.csv")
+
+#writing a function
+mass_from_lengths <- function(lengths, species){
+  if (species == "Stegosauria"){
+    mass <-  10.95 * lengths ^ 2.64
+  } else if (species == "Theropoda") {
+    mass <-  0.73 * lengths ^ 3.63
+  } else if (species == "Sauropoda") {
+    mass <- 214.44 * lengths ^ 1.46
+  } else {
+    mass <- 25.37 * lengths ^ 2.49
+  }
+  return(mass)
+}
+
+
+#creating an empty vector for new masses calculated 
+masses <- vector(mode = "numeric",
+                 length = nrow(dinosaur_length))
+
+
+#a using a for loop and storing masses in a vector
+for (i in 1:nrow(dinosaur_length)){
+  masses[i] <- mass_from_lengths(dinosaur_length$lengths[i],
+                                 dinosaur_length$species[i])
+                             
+}
+
+head(masses) #print #2a
+
+
+#b using a for loop to calculate the mass of dinosaurs using the function and savinf it in the data frame
+for (i in 1:nrow(dinosaur_length)){
+  dinosaur_length$masses[i] <- mass_from_lengths(dinosaur_length$lengths[i],
+                                                 dinosaur_length$species[i])
+}
+
+head (dinosaur_length)#print
+
+
+#2c
+#calculating the mass using dplyr function
+#dinosaur_length |> 
+ # mutate(masses_2 == )
+
+
+
+```
 
 ### 3. Multi-file Analysis (20 pts)
 
@@ -168,7 +220,9 @@ b.  Add code to the loop to calculate the minimum and maximum latitude in the fi
     Show the data frame as output.
 
 ```{r}
-dinosaur_length <- read_csv("../data/dinosaur_length.csv")
+
+
+
 ```
 
 ### 4. DNA or RNA (20 points)
