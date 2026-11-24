@@ -230,6 +230,7 @@ unzip(zipfile = "../data/locations.zip",
 data_files <- list.files(path = "../data/", 
                          pattern = "locations.*.txt")
 
+#using a loop to graph the locations 
 
 ```
 
@@ -244,7 +245,6 @@ a.  Write a function that determines if a sequence of base pairs is DNA, RNA, or
     *HINT: Remember our work with character strings and the `stringr` package from the `tidyverse` (Week 7)?*
 
 ```{r}
-
 
 # write your function here
 dna_or_rna <- function(sequence){
@@ -310,13 +310,42 @@ for (i in 1:length(sequences)) {
 seq_type #print
 
 #4d)
-#stoing results in a data frame 
+#storing results in a data frame 
+
+#creating an empty colum in a data frame
+seq_df <- as.data.frame(sequences)
+seq_df
+seq_df$seqtype <- NA
+
+for (i in 1:nrow(seq_df)) {
+  seq_df$seqtype[i] <- dna_or_rna(sequences[i])
+}
+
+seq_df #print
+
+#4e
 
 
+for (i in 1:length(sequences)) {
+  
+  if (str_detect(sequences[i], "u")) {
+    seq_type <- "RNA"
+    
+  } else if (str_detect(sequences[i], "t")) {
+    seq_type <- "DNA"
+    
+  } else {
+    seq_type <- "UNKNOWN"
+  }}
+  
+  seq_type
 ```
 
 ```{r}
 seq_df <- as.data.frame(sequences)
+seq_df
+seq_df$seqtype <- NA
+
 ```
 
 ## Turning in Your Assignment
